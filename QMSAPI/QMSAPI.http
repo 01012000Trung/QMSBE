@@ -1,0 +1,6 @@
+@QMSAPI_HostAddress = http://localhost:5234
+
+GET {{QMSAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
