@@ -46,6 +46,58 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Pools"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Pools/{id}": {
+      "get": {
+        "tags": [
+          "Pools"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Staff": {
@@ -267,6 +319,41 @@
           },
           "password": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PoolCreateDto": {
+        "type": "object",
+        "properties": {
+          "poolName": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxCapacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "depth": {
+            "type": "number",
+            "format": "double"
+          },
+          "pLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "pStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastCleaningDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
