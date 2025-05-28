@@ -1,8 +1,9 @@
 ﻿// Controllers/StaffController.cs
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QMSAPI.Models;
 using QMSAPI.Data;
+using QMSAPI.Dtos.Staff;
+using QMSAPI.Models;
 
 namespace QMSAPI.Controllers
 {
@@ -24,6 +25,33 @@ namespace QMSAPI.Controllers
             return await _context.Staff.ToListAsync();
         }
 
+        //POST: api/staff/login
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            var staff = await _context.Staff
+                .FirstOrDefaultAsync(s => s.Username == loginDto.Username);
+
+            if (staff == null || staff.SPassword != loginDto.Password) // So sánh thô
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+
+            // Trả về thông tin staff, không trả password
+            var response = new StaffResponseDto
+            {
+                StaffId = staff.StaffId,
+                Email = staff.Email,
+                PhoneNumber = staff.PhoneNumber,
+                FullName = staff.FullName,
+                SRole = staff.SRole,
+                Username = staff.Username,
+                Access = staff.Access,
+                SAddress = staff.SAddress
+            };
+
+            return Ok(response);
+        }
         // POST: api/Staff/CreateStaff
         [HttpPost]
         public async Task<IActionResult> CreateStaff([FromBody] CreateStaffDto dto)

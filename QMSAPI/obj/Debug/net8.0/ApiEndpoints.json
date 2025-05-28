@@ -46,6 +46,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "QMSAPI.Controllers.StaffController",
+    "Method": "Login",
+    "RelativePath": "api/Staff/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "QMSAPI.Dtos.Staff.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "QMSAPI.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",
