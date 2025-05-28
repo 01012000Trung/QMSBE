@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QMSAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d7ae87eced6ca1f523a73e1f7b541ffe6eed7e3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4442afe0cd1295d9533a8e38186e8145c2ec51b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("QMSAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QMSAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

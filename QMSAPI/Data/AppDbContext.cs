@@ -8,5 +8,7 @@ namespace QMSAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Staff> Staff { get; set; } // Corrected property name
+
+        public DbSet<Pools> Pools { get; set; } // Added Pools DbSet
     }
 }

@@ -25,33 +25,6 @@ namespace QMSAPI.Controllers
             return await _context.Staff.ToListAsync();
         }
 
-        //POST: api/staff/login
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
-        {
-            var staff = await _context.Staff
-                .FirstOrDefaultAsync(s => s.Username == loginDto.Username);
-
-            if (staff == null || staff.SPassword != loginDto.Password) // So sánh thô
-            {
-                return Unauthorized("Invalid username or password.");
-            }
-
-            // Trả về thông tin staff, không trả password
-            var response = new StaffResponseDto
-            {
-                StaffId = staff.StaffId,
-                Email = staff.Email,
-                PhoneNumber = staff.PhoneNumber,
-                FullName = staff.FullName,
-                SRole = staff.SRole,
-                Username = staff.Username,
-                Access = staff.Access,
-                SAddress = staff.SAddress
-            };
-
-            return Ok(response);
-        }
         // POST: api/Staff/CreateStaff
         [HttpPost]
         public async Task<IActionResult> CreateStaff([FromBody] CreateStaffDto dto)
@@ -85,5 +58,48 @@ namespace QMSAPI.Controllers
             return password; // Temporary - you should hash the password in production
         }
 
+        // DELETE: api/staff/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStaff(int id)
+        {
+            var staff = await _context.Staff.FindAsync(id);
+
+            if (staff == null)
+            {
+                return NotFound($"No staff found with ID = {id}");
+            }
+
+            _context.Staff.Remove(staff);
+            await _context.SaveChangesAsync();
+
+            return Ok($"Staff with ID = {id} has been deleted.");
+        }
+
+        // PUT: api/staff/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStaff(int id, [FromBody] StaffUpdateDto updateDto)
+        {
+            var staff = await _context.Staff.FindAsync(id);
+
+            if (staff == null)
+            {
+                return NotFound($"No staff found with ID = {id}");
+            }
+
+            // Cập nhật các trường (bạn có thể kiểm tra null nếu muốn)
+            staff.Email = updateDto.Email;
+            staff.PhoneNumber = updateDto.PhoneNumber;
+            staff.FullName = updateDto.FullName;
+            staff.SRole = updateDto.SRole;
+            staff.Username = updateDto.Username;
+            staff.SPassword = updateDto.SPassword;
+            staff.Access = updateDto.Access;
+            staff.SAddress = updateDto.SAddress;
+
+            _context.Staff.Update(staff);
+            await _context.SaveChangesAsync();
+
+            return Ok(staff);
+        }
     }
 }
