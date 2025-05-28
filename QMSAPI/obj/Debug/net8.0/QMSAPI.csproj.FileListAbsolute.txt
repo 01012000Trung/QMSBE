@@ -166,3 +166,4 @@ E:\DACNTT2\QMS\QMSAPI\QMSAPI\obj\Debug\net8.0\refint\QMSAPI.dll
 E:\DACNTT2\QMS\QMSAPI\QMSAPI\obj\Debug\net8.0\QMSAPI.pdb
 E:\DACNTT2\QMS\QMSAPI\QMSAPI\obj\Debug\net8.0\QMSAPI.genruntimeconfig.cache
 E:\DACNTT2\QMS\QMSAPI\QMSAPI\obj\Debug\net8.0\ref\QMSAPI.dll
+E:\DACNTT2\QMS\QMSAPI\QMSAPI\obj\Debug\net8.0\QMSAPI.sourcelink.json
