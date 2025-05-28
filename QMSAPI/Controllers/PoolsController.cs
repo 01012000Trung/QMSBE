@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; // Ensure this is included
 using QMSAPI.Data;
+using QMSAPI.Dtos.Pools;
 using QMSAPI.Dtos.Staff;
 using QMSAPI.Models;
 
@@ -37,7 +38,6 @@ namespace QMSAPI.Controllers
                 Depth = dto.Depth,
                 PLocation = dto.PLocation,
                 PStatus = dto.PStatus,
-                LastCleaningDate = dto.LastCleaningDate
             };
 
             _context.Pools.Add(newPool);
@@ -53,6 +53,44 @@ namespace QMSAPI.Controllers
             var pool = await _context.Pools.FindAsync(id);
             if (pool == null) return NotFound();
             return Ok(pool);
+        }
+
+        // DELETE: api/pools/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePool(int id)
+        {
+            var pool = await _context.Pools.FindAsync(id);
+            if (pool == null)
+            {
+                return NotFound(new { message = $"Pool with ID = {id} not found." });
+            }
+
+            _context.Pools.Remove(pool);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = $"Pool with ID = {id} deleted successfully." });
+        }
+
+        //PUT: api/pools/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePool(int id, [FromBody] PoolUpdateDto dto)
+        {
+            var pool = await _context.Pools.FindAsync(id);
+            if (pool == null)
+            {
+                return NotFound(new { message = $"Pool with ID = {id} not found." });
+            }
+
+            pool.PoolName = dto.PoolName;
+            pool.Size = dto.Size;
+            pool.MaxCapacity = dto.MaxCapacity;
+            pool.Depth = dto.Depth;
+            pool.PLocation = dto.PLocation;
+            pool.PStatus = dto.PStatus;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = $"Pool with ID = {id} updated successfully.", pool });
         }
     }
 }
