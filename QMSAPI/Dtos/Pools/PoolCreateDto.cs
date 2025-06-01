@@ -8,6 +8,5 @@
         public double Depth { get; set; }
         public string PLocation { get; set; }
         public string PStatus { get; set; }
-        public DateTime? LastCleaningDate { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QMSAPI.Dtos.WaterQualityParameter;
 using QMSAPI.Models;
 
 namespace QMSAPI.Data
@@ -10,5 +11,7 @@ namespace QMSAPI.Data
         public DbSet<Staff> Staff { get; set; } // Corrected property name
 
         public DbSet<Pools> Pools { get; set; } // Added Pools DbSet
+
+        public DbSet<WaterQualityParameter> WaterQualityParameters { get; set; } // Added WaterQualityParameter DbSet
     }
 }

@@ -119,6 +119,46 @@
             "description": "OK"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Pools"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoolUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Staff": {
@@ -251,12 +291,11 @@
         }
       }
     },
-    "/WeatherForecast": {
+    "/api/WaterQualityParameters": {
       "get": {
         "tags": [
-          "WeatherForecast"
+          "WaterQualityParameters"
         ],
-        "operationId": "GetWeatherForecast",
         "responses": {
           "200": {
             "description": "OK",
@@ -265,7 +304,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
                   }
                 }
               },
@@ -273,7 +312,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
                   }
                 }
               },
@@ -281,7 +320,45 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/WaterQualityParameters/me": {
+      "get": {
+        "tags": [
+          "WaterQualityParameters"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WaterQualityParameterDto"
                   }
                 }
               }
@@ -371,10 +448,35 @@
           "pStatus": {
             "type": "string",
             "nullable": true
-          },
-          "lastCleaningDate": {
+          }
+        },
+        "additionalProperties": false
+      },
+      "PoolUpdateDto": {
+        "type": "object",
+        "properties": {
+          "poolName": {
             "type": "string",
-            "format": "date-time",
+            "nullable": true
+          },
+          "size": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxCapacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "depth": {
+            "type": "number",
+            "format": "double"
+          },
+          "pLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "pStatus": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -478,25 +580,54 @@
         },
         "additionalProperties": false
       },
-      "WeatherForecast": {
+      "WaterQualityParameterDto": {
         "type": "object",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
+          "parameterId": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
+          "poolName": {
             "type": "string",
             "nullable": true
+          },
+          "pTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "number",
+            "format": "double"
+          },
+          "pHLevel": {
+            "type": "number",
+            "format": "double"
+          },
+          "chlorineMgPerL": {
+            "type": "number",
+            "format": "double"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "resolved": {
+            "type": "boolean"
+          },
+          "needsAction": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
