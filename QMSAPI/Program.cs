@@ -57,7 +57,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 
 // Authentication & Authorization middleware
-app.UseAuthentication(); // 👈 Phải thêm dòng này TRƯỚC UseAuthorization
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

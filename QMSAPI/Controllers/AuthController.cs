@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using QMSAPI.Data;
 using QMSAPI.Dtos.Login;
-using QMSAPI.Dtos.Staff;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,6 +24,7 @@ namespace QMSAPI.Controllers
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] QMSAPI.Dtos.Login.LoginDto loginDto)
+
         {
             var staff = await _context.Staff
                 .FirstOrDefaultAsync(s => s.Username == loginDto.Username);
@@ -34,11 +34,14 @@ namespace QMSAPI.Controllers
                 return Unauthorized("Invalid username or password.");
             }
 
+            // Tạo token
             var token = GenerateJwtToken(staff);
+
+            // Gửi token qua response header
+            Response.Headers.Add("Authorization", $"Bearer {token}");
 
             var response = new
             {
-                Token = token,
                 Staff = new StaffResponseDto
                 {
                     StaffId = staff.StaffId,
