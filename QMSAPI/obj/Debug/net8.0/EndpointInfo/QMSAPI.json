@@ -304,7 +304,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                    "$ref": "#/components/schemas/WaterQualityParameter"
                   }
                 }
               },
@@ -312,7 +312,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                    "$ref": "#/components/schemas/WaterQualityParameter"
                   }
                 }
               },
@@ -320,19 +320,59 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
+                    "$ref": "#/components/schemas/WaterQualityParameter"
                   }
                 }
               }
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "WaterQualityParameters"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterQualityParameterCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterQualityParameterCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterQualityParameterCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "/api/WaterQualityParameters/me": {
+    "/api/WaterQualityParameters/{id}": {
       "get": {
         "tags": [
           "WaterQualityParameters"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -340,26 +380,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
-                  }
+                  "$ref": "#/components/schemas/WaterQualityParameter"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
-                  }
+                  "$ref": "#/components/schemas/WaterQualityParameter"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameterDto"
-                  }
+                  "$ref": "#/components/schemas/WaterQualityParameter"
                 }
               }
             }
@@ -580,10 +611,14 @@
         },
         "additionalProperties": false
       },
-      "WaterQualityParameterDto": {
+      "WaterQualityParameter": {
         "type": "object",
         "properties": {
           "parameterId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "poolId": {
             "type": "integer",
             "format": "int32"
           },
@@ -611,15 +646,55 @@
             "type": "string",
             "nullable": true
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdBy": {
+          "rStatus": {
             "type": "string",
             "nullable": true
           },
-          "status": {
+          "resolved": {
+            "type": "boolean"
+          },
+          "needsAction": {
+            "type": "boolean"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WaterQualityParameterCreateDto": {
+        "type": "object",
+        "properties": {
+          "poolName": {
+            "type": "string",
+            "nullable": true
+          },
+          "pTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "number",
+            "format": "float"
+          },
+          "pHLevel": {
+            "type": "number",
+            "format": "float"
+          },
+          "chlorineMgPerL": {
+            "type": "number",
+            "format": "float"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rStatus": {
             "type": "string",
             "nullable": true
           },

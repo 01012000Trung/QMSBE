@@ -169,7 +169,7 @@
   },
   {
     "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",
-    "Method": "GetAll",
+    "Method": "GetWaterQualityParameters",
     "RelativePath": "api/WaterQualityParameters",
     "HttpMethod": "GET",
     "IsController": true,
@@ -177,7 +177,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QMSAPI.Dtos.WaterQualityParameter.WaterQualityParameterDto, QMSAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[QMSAPI.Models.WaterQualityParameter, QMSAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -189,15 +189,37 @@
   },
   {
     "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",
-    "Method": "GetByCurrentUser",
-    "RelativePath": "api/WaterQualityParameters/me",
+    "Method": "Create",
+    "RelativePath": "api/WaterQualityParameters",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QMSAPI.Dtos.WaterQualityParameter.WaterQualityParameterCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",
+    "Method": "GetById",
+    "RelativePath": "api/WaterQualityParameters/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QMSAPI.Dtos.WaterQualityParameter.WaterQualityParameterDto, QMSAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "QMSAPI.Models.WaterQualityParameter",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -7,29 +7,26 @@ namespace QMSAPI.Models
     {
         [Key]
         public int ParameterId { get; set; }
+        public int PoolId { get; set; }
 
         public string PoolName { get; set; } = string.Empty;
 
         public DateTime PTimestamp { get; set; }
 
-        public float TemperatureC { get; set; }
+        public double TemperatureC { get; set; }
 
-        public float pHLevel { get; set; }
+        public double pHLevel { get; set; }
 
-        public float ChlorineMgPerL { get; set; }
+        public double ChlorineMgPerL { get; set; }
 
         public string? Notes { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        public int? CreatedById { get; set; }
-
-        public string? Status { get; set; }
+        public string? RStatus { get; set; }
 
         public bool Resolved { get; set; } = false;
 
         public bool NeedsAction { get; set; } = true;
 
-        public Staff? CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

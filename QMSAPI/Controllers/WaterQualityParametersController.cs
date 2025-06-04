@@ -19,74 +19,52 @@ namespace QMSAPI.Controllers
 
         // GET: api/WaterQualityParameters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WaterQualityParameterDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<WaterQualityParameter>>> GetWaterQualityParameters()
         {
-            var fullName = await GetCurrentUserFullNameAsync();
-            if (string.IsNullOrEmpty(fullName))
-                return Unauthorized();
-
-            var parameters = await _context.WaterQualityParameters
-                .Include(p => p.CreatedBy)
-                .Where(p => p.CreatedBy.FullName == fullName)
-                .Select(p => new WaterQualityParameterDto
-                {
-                    ParameterId = p.ParameterId,
-                    PoolName = p.PoolName,
-                    PTimestamp = p.PTimestamp,
-                    TemperatureC = p.TemperatureC,
-                    pHLevel = p.pHLevel,
-                    ChlorineMgPerL = p.ChlorineMgPerL,
-                    Notes = p.Notes,
-                    CreatedAt = p.CreatedAt,
-                    CreatedBy = p.CreatedBy != null ? p.CreatedBy.FullName : null,
-                    Status = p.Status,
-                    Resolved = p.Resolved,
-                    NeedsAction = p.NeedsAction
-                })
+            return await _context.WaterQualityParameters
+                .OrderByDescending(w => w.PTimestamp)
                 .ToListAsync();
-
-            return Ok(parameters);
         }
 
-        private async Task<string?> GetCurrentUserFullNameAsync()
+        [HttpPost]
+        public async Task<IActionResult> Create(WaterQualityParameterCreateDto dto)
         {
-            var username = User.Identity?.Name;
+            // Tìm Pool theo tên
+            var pool = await _context.Pools.FirstOrDefaultAsync(p => p.PoolName == dto.PoolName);
+            if (pool == null)
+                return NotFound($"Không tìm thấy hồ bơi tên '{dto.PoolName}'.");
 
-            if (string.IsNullOrEmpty(username))
-                return null;
+            var param = new WaterQualityParameter
+            {
+                PoolId = pool.PoolsId,
+                PoolName = pool.PoolName, // <-- gán lại nếu muốn lưu trong bảng
+                PTimestamp = dto.PTimestamp,
+                TemperatureC = (float)dto.TemperatureC,
+                pHLevel = (float)dto.pHLevel,
+                ChlorineMgPerL = (float)dto.ChlorineMgPerL,
+                Notes = dto.Notes,
+                CreatedBy = dto.StaffId,
+                RStatus = dto.RStatus,
+                Resolved = dto.Resolved,
+                NeedsAction = dto.NeedsAction
+            };
 
-            var staff = await _context.Staff.FirstOrDefaultAsync(s => s.Username == username);
-            return staff?.FullName;
+            _context.WaterQualityParameters.Add(param);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetById), new { id = param.ParameterId }, param);
         }
 
-        [HttpGet("me")]
-        public async Task<ActionResult<IEnumerable<WaterQualityParameterDto>>> GetByCurrentUser()
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<WaterQualityParameter>> GetById(int id)
         {
-            var fullName = await GetCurrentUserFullNameAsync();
-            if (string.IsNullOrEmpty(fullName))
-                return Unauthorized();
+            var param = await _context.WaterQualityParameters.FindAsync(id);
 
-            var parameters = await _context.WaterQualityParameters
-                .Include(p => p.CreatedBy)
-                .Where(p => p.CreatedBy.FullName == fullName) // 👈 lọc theo FullName nếu muốn
-                .Select(p => new WaterQualityParameterDto
-                {
-                    ParameterId = p.ParameterId,
-                    PoolName = p.PoolName,
-                    PTimestamp = p.PTimestamp,
-                    TemperatureC = p.TemperatureC,
-                    pHLevel = p.pHLevel,
-                    ChlorineMgPerL = p.ChlorineMgPerL,
-                    Notes = p.Notes,
-                    CreatedAt = p.CreatedAt,
-                    CreatedBy = p.CreatedBy != null ? p.CreatedBy.FullName : null,
-                    Status = p.Status,
-                    Resolved = p.Resolved,
-                    NeedsAction = p.NeedsAction
-                })
-                .ToListAsync();
+            if (param == null)
+                return NotFound();
 
-            return Ok(parameters);
+            return param;
         }
 
     }
