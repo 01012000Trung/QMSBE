@@ -16,6 +16,110 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "QMSAPI.Controllers.ChemicalsController",
+    "Method": "GetChemicals",
+    "RelativePath": "api/Chemicals",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[QMSAPI.Models.Chemical, QMSAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.ChemicalsController",
+    "Method": "CreateChemical",
+    "RelativePath": "api/Chemicals",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chemical",
+        "Type": "QMSAPI.Models.Chemical",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QMSAPI.Models.Chemical",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.ChemicalsController",
+    "Method": "GetChemicalById",
+    "RelativePath": "api/Chemicals/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QMSAPI.Models.Chemical",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.ChemicalUsageHistoryController",
+    "Method": "Create",
+    "RelativePath": "api/ChemicalUsageHistory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QMSAPI.Dtos.ChemicalUsageHistor.CreateChemicalUsageHistoryDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.ChemicalUsageHistoryController",
+    "Method": "GetById",
+    "RelativePath": "api/ChemicalUsageHistory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "QMSAPI.Controllers.PoolsController",
     "Method": "GetPools",
     "RelativePath": "api/Pools",
@@ -228,5 +332,26 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",
+    "Method": "UpdateResolved",
+    "RelativePath": "api/WaterQualityParameters/{id}/resolve",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "QMSAPI.Dtos.WaterQualityParameter.UpdateResolvedDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

@@ -67,5 +67,27 @@ namespace QMSAPI.Controllers
             return param;
         }
 
+        [HttpPatch("{id}/resolve")]
+        public async Task<IActionResult> UpdateResolved(int id, [FromBody] UpdateResolvedDto dto)
+        {
+            var parameter = await _context.WaterQualityParameters.FindAsync(id);
+            if (parameter == null)
+            {
+                return NotFound(new { message = $"Parameter with ID {id} not found." });
+            }
+
+            parameter.Resolved = dto.Resolved;
+
+            // Nếu Resolved = true thì tự động bỏ NeedsAction = false (tuỳ yêu cầu logic)
+            if (dto.Resolved)
+            {
+                parameter.NeedsAction = false;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Resolved status updated successfully." });
+        }
+
     }
 }

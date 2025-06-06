@@ -36,6 +36,184 @@
         }
       }
     },
+    "/api/Chemicals": {
+      "get": {
+        "tags": [
+          "Chemicals"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Chemical"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Chemical"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Chemical"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Chemicals"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chemical"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chemical"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Chemical"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Chemicals/{id}": {
+      "get": {
+        "tags": [
+          "Chemicals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chemical"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ChemicalUsageHistory": {
+      "post": {
+        "tags": [
+          "ChemicalUsageHistory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChemicalUsageHistoryDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChemicalUsageHistoryDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChemicalUsageHistoryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChemicalUsageHistory/{id}": {
+      "get": {
+        "tags": [
+          "ChemicalUsageHistory"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Pools": {
       "get": {
         "tags": [
@@ -397,10 +575,137 @@
           }
         }
       }
+    },
+    "/api/WaterQualityParameters/{id}/resolve": {
+      "patch": {
+        "tags": [
+          "WaterQualityParameters"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateResolvedDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateResolvedDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateResolvedDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Chemical": {
+        "type": "object",
+        "properties": {
+          "chemicalId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chemicalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "chemicalType": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "unit": {
+            "type": "string",
+            "nullable": true
+          },
+          "minThreshold": {
+            "type": "number",
+            "format": "double"
+          },
+          "reorderLevel": {
+            "type": "number",
+            "format": "double"
+          },
+          "chDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateChemicalUsageHistoryDto": {
+        "type": "object",
+        "properties": {
+          "chemicalId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chemicalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
+          "poolId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "poolName": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "unit": {
+            "type": "string",
+            "nullable": true
+          },
+          "adjustedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateStaffDto": {
         "type": "object",
         "properties": {
@@ -607,6 +912,15 @@
           "sAddress": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateResolvedDto": {
+        "type": "object",
+        "properties": {
+          "resolved": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

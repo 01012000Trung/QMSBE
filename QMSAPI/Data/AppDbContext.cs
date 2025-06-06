@@ -13,5 +13,9 @@ namespace QMSAPI.Data
         public DbSet<Pools> Pools { get; set; } // Added Pools DbSet
 
         public DbSet<WaterQualityParameter> WaterQualityParameters { get; set; } // Added WaterQualityParameter DbSet
+
+        public DbSet<Chemical> Chemicals { get; set; }
+
+        public DbSet<ChemicalUsageHistory> ChemicalUsageHistory { get; set; }
     }
 }
