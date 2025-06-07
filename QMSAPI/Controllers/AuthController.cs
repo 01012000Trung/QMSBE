@@ -6,6 +6,7 @@ using QMSAPI.Dtos.Login;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 namespace QMSAPI.Controllers
 {
@@ -24,20 +25,27 @@ namespace QMSAPI.Controllers
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] QMSAPI.Dtos.Login.LoginDto loginDto)
-
         {
             var staff = await _context.Staff
                 .FirstOrDefaultAsync(s => s.Username == loginDto.Username);
 
-            if (staff == null || staff.SPassword != loginDto.Password)
+            if (staff == null)
             {
                 return Unauthorized("Invalid username or password.");
             }
 
-            // Tạo token
+            // ✅ Kiểm tra mật khẩu băm
+            var hasher = new PasswordHasher<Models.Staff>();
+            var result = hasher.VerifyHashedPassword(staff, staff.SPassword, loginDto.Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+
+            // ✅ Tạo JWT token
             var token = GenerateJwtToken(staff);
 
-            // Gửi token qua response header
             Response.Headers.Add("Authorization", $"Bearer {token}");
 
             var response = new
