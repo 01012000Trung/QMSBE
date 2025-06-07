@@ -158,6 +158,27 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Chemicals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Chemicals/batch/applychemical": {
@@ -234,6 +255,42 @@
       }
     },
     "/api/ChemicalUsageHistory": {
+      "get": {
+        "tags": [
+          "ChemicalUsageHistory"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChemicalUsageHistory"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChemicalUsageHistory"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChemicalUsageHistory"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "ChemicalUsageHistory"
@@ -739,6 +796,61 @@
             "format": "double"
           },
           "chDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChemicalUsageHistory": {
+        "type": "object",
+        "properties": {
+          "historyID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chemicalId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "chemicalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
+          "poolId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "poolName": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
+          },
+          "unit": {
+            "type": "string",
+            "nullable": true
+          },
+          "adjustedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "staff": {
+            "$ref": "#/components/schemas/Staff"
+          },
+          "cTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "note": {
             "type": "string",
             "nullable": true
           }

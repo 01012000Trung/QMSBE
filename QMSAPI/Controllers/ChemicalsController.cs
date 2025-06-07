@@ -112,5 +112,20 @@ namespace QMSAPI.Controllers
                 chemical.Unit
             });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteChemical(int id)
+        {
+            var chemical = await _context.Chemicals.FindAsync(id);
+            if (chemical == null)
+            {
+                return NotFound(new { message = "Chemical not found." });
+            }
+
+            _context.Chemicals.Remove(chemical);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Chemical deleted successfully." });
+        }
     }
 }

@@ -17,6 +17,16 @@ namespace QMSAPI.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ChemicalUsageHistory>>> GetChemicalUsageHistory()
+        {
+            var histories = await _context.ChemicalUsageHistory
+                .OrderByDescending(h => h.CTimestamp)
+                .ToListAsync();
+
+            return Ok(histories);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateChemicalUsageHistoryDto dto)
         {
