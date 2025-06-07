@@ -33,7 +33,6 @@ namespace QMSAPI.Controllers
                 Quantity = dto.Quantity,
                 Unit = dto.Unit,
                 AdjustedBy = dto.AdjustedBy,
-                CStatus = dto.CStatus,
                 CTimestamp = DateTime.UtcNow,
                 Note = dto.Note
             };

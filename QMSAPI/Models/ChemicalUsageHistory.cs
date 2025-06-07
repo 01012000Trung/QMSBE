@@ -11,7 +11,7 @@ namespace QMSAPI.Models
         public int ChemicalId { get; set; }
         public string ChemicalName { get; set; }
         public string Action { get; set; }
-        public int PoolId { get; set; }
+        public int? PoolId { get; set; }
         public string PoolName { get; set; }
         public double Quantity { get; set; }
         public string Unit { get; set; }
@@ -21,7 +21,6 @@ namespace QMSAPI.Models
         [ForeignKey("AdjustedBy")]
         public Staff Staff { get; set; }  // Navigation property FK
 
-        public string CStatus { get; set; }
         public DateTime CTimestamp { get; set; }
         public string Note { get; set; }
     }

@@ -160,6 +160,79 @@
         }
       }
     },
+    "/api/Chemicals/batch/applychemical": {
+      "patch": {
+        "tags": [
+          "Chemicals"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchChemicalUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchChemicalUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchChemicalUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chemicals/{id}/restock": {
+      "post": {
+        "tags": [
+          "Chemicals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChemicalDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChemicalDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChemicalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ChemicalUsageHistory": {
       "post": {
         "tags": [
@@ -621,6 +694,19 @@
   },
   "components": {
     "schemas": {
+      "BatchChemicalUpdateDto": {
+        "type": "object",
+        "properties": {
+          "chemicals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpdateChemicalDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Chemical": {
         "type": "object",
         "properties": {
@@ -676,7 +762,8 @@
           },
           "poolId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "poolName": {
             "type": "string",
@@ -693,10 +780,6 @@
           "adjustedBy": {
             "type": "integer",
             "format": "int32",
-            "nullable": true
-          },
-          "cStatus": {
-            "type": "string",
             "nullable": true
           },
           "note": {
@@ -912,6 +995,20 @@
           "sAddress": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateChemicalDto": {
+        "type": "object",
+        "properties": {
+          "chemicalId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
