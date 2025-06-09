@@ -179,6 +179,46 @@
             "description": "OK"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Chemicals"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChemicalUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChemicalUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChemicalUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Chemicals/batch/applychemical": {
@@ -232,17 +272,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateChemicalDto"
+                "$ref": "#/components/schemas/UpdateQuanlityDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateChemicalDto"
+                "$ref": "#/components/schemas/UpdateQuanlityDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateChemicalDto"
+                "$ref": "#/components/schemas/UpdateQuanlityDto"
               }
             }
           }
@@ -757,7 +797,7 @@
           "chemicals": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UpdateChemicalDto"
+              "$ref": "#/components/schemas/UpdateQuanlityDto"
             },
             "nullable": true
           }
@@ -794,6 +834,36 @@
           "reorderLevel": {
             "type": "number",
             "format": "double"
+          },
+          "chDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChemicalUpdateDto": {
+        "type": "object",
+        "properties": {
+          "chemicalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "chemicalType": {
+            "type": "string",
+            "nullable": true
+          },
+          "minThreshold": {
+            "type": "number",
+            "format": "float"
+          },
+          "reorderLevel": {
+            "type": "number",
+            "format": "float"
+          },
+          "unit": {
+            "type": "string",
+            "nullable": true
           },
           "chDescription": {
             "type": "string",
@@ -1111,7 +1181,7 @@
         },
         "additionalProperties": false
       },
-      "UpdateChemicalDto": {
+      "UpdateQuanlityDto": {
         "type": "object",
         "properties": {
           "chemicalId": {

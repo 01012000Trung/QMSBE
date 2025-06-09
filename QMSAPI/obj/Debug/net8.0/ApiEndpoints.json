@@ -105,6 +105,27 @@
   },
   {
     "ContainingType": "QMSAPI.Controllers.ChemicalsController",
+    "Method": "UpdateChemical",
+    "RelativePath": "api/Chemicals/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "QMSAPI.Dtos.Chemical.ChemicalUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QMSAPI.Controllers.ChemicalsController",
     "Method": "AddQuantity",
     "RelativePath": "api/Chemicals/{id}/restock",
     "HttpMethod": "POST",
@@ -118,7 +139,7 @@
       },
       {
         "Name": "dto",
-        "Type": "QMSAPI.Dtos.Chemical.UpdateChemicalDto",
+        "Type": "QMSAPI.Dtos.Chemical.UpdateQuanlityDto",
         "IsRequired": true
       }
     ],

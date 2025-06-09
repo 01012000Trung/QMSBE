@@ -85,7 +85,7 @@ namespace QMSAPI.Controllers
         }
 
         [HttpPost("{id}/restock")]
-        public async Task<IActionResult> AddQuantity(int id, [FromBody] UpdateChemicalDto dto)
+        public async Task<IActionResult> AddQuantity(int id, [FromBody] UpdateQuanlityDto dto)
         {
             var chemical = await _context.Chemicals.FindAsync(id);
             if (chemical == null)
@@ -126,6 +126,28 @@ namespace QMSAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Chemical deleted successfully." });
+        }
+
+        // PUT: api/chemicals/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateChemical(int id, [FromBody] ChemicalUpdateDto dto)
+        {
+            var chemical = await _context.Chemicals.FindAsync(id);
+            if (chemical == null)
+            {
+                return NotFound(new { message = "Chemical not found." });
+            }
+
+            chemical.ChemicalName = dto.ChemicalName;
+            chemical.ChemicalType = dto.ChemicalType;
+            chemical.MinThreshold = dto.MinThreshold;
+            chemical.ReorderLevel = dto.ReorderLevel;
+            chemical.Unit = dto.Unit;
+            chemical.ChDescription = dto.ChDescription;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Chemical updated successfully." });
         }
     }
 }

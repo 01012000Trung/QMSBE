@@ -2,6 +2,6 @@
 {
     public class BatchChemicalUpdateDto
     {
-        public List<UpdateChemicalDto> Chemicals { get; set; }
+        public List<UpdateQuanlityDto> Chemicals { get; set; }
     }
 }
