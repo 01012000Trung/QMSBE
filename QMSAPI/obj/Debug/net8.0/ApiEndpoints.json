@@ -214,6 +214,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "QMSAPI.Controllers.DashboardController",
+    "Method": "DashBoardSummary",
+    "RelativePath": "api/Dashboard/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "QMSAPI.Models.DashBoardSummary",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "QMSAPI.Controllers.PoolsController",
     "Method": "GetPools",
     "RelativePath": "api/Pools",
@@ -367,23 +387,13 @@
   },
   {
     "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",
-    "Method": "GetWaterQualityParameters",
+    "Method": "GetAll",
     "RelativePath": "api/WaterQualityParameters",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QMSAPI.Models.WaterQualityParameter, QMSAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "QMSAPI.Controllers.WaterQualityParametersController",

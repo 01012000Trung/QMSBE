@@ -384,6 +384,35 @@
         }
       }
     },
+    "/api/Dashboard/summary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashBoardSummary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashBoardSummary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashBoardSummary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Pools": {
       "get": {
         "tags": [
@@ -646,33 +675,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameter"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameter"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WaterQualityParameter"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -1005,6 +1008,44 @@
           "sAddress": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashBoardSummary": {
+        "type": "object",
+        "properties": {
+          "totalPools": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activePools": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maintenancePools": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "closedPools": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAlerts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "criticalAlerts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "warningAlerts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "todayMeasurements": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

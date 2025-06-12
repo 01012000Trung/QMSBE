@@ -19,11 +19,13 @@ namespace QMSAPI.Controllers
 
         // GET: api/WaterQualityParameters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WaterQualityParameter>>> GetWaterQualityParameters()
+        public async Task<IActionResult> GetAll()
         {
-            return await _context.WaterQualityParameters
-                .OrderByDescending(w => w.PTimestamp)
+            var parameters = await _context.WaterQualityParameters
+                .OrderByDescending(p => p.PTimestamp) // Sắp xếp mới nhất trước
                 .ToListAsync();
+
+            return Ok(parameters);
         }
 
         [HttpPost]
