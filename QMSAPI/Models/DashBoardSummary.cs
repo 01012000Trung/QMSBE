@@ -2,7 +2,7 @@
 {
     public class DashBoardSummary
     {
-        public int TotalPools { get; set; }
+        public int TotalPools { get ; set; }
         public int ActivePools { get; set; }
         public int MaintenancePools { get; set; }
         public int ClosedPools { get; set; }

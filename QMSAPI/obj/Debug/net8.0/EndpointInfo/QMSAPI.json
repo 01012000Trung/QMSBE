@@ -1130,7 +1130,6 @@
           "email",
           "fullName",
           "phoneNumber",
-          "sPassword",
           "sRole",
           "username"
         ],
@@ -1166,9 +1165,8 @@
             "type": "string"
           },
           "sPassword": {
-            "maxLength": 256,
-            "minLength": 0,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "access": {
             "maxLength": 20,

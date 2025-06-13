@@ -23,8 +23,7 @@ namespace QMSAPI.Models
         [Required, StringLength(50)]
         public string Username { get; set; }
 
-        [Required, StringLength(256)]
-        public string SPassword { get; set; }
+        public string? SPassword { get; set; }
 
         [Required, StringLength(20)]
         public string Access { get; set; }
